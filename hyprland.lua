@@ -43,7 +43,7 @@ local fileManager = "dolphin"
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 -- Or execute your favorite apps at launch like this:
 --
-hl.on("hyprland.start", function () 
+hl.on("hyprland.start", function ()
    hl.exec_cmd("noctalia")
 --   hl.exec_cmd("nm-applet")
 --   hl.exec_cmd("waybar & hyprpaper & firefox")
@@ -87,7 +87,7 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.config({
     general = {
         gaps_in  = 5,
-        gaps_out = 20,
+        gaps_out = 10,
 
         border_size = 2,
 
@@ -106,7 +106,7 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 10,
+        rounding       = 8,
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows
@@ -123,8 +123,8 @@ hl.config({
         blur = {
             enabled   = true,
             size      = 3,
-            passes    = 1,
-            vibrancy  = 0.1696,
+            passes    = 3,
+            vibrancy  = 0.2697,
         },
     },
 
@@ -228,15 +228,14 @@ hl.config({
 
 hl.config({
     input = {
-        kb_layout  = "us",
+        kb_layout  = "us,br",
         kb_variant = "",
         kb_model   = "",
-        kb_options = "",
+        kb_options = "caps:escape",
         kb_rules   = "",
 
         follow_mouse = 1,
-
-        sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
+        sensitivity = 0.01, -- -1.0 - 1.0, 0 means no modification.
 
         touchpad = {
             natural_scroll = false,
@@ -262,19 +261,25 @@ hl.device({
 ---- KEYBINDINGS ----
 ---------------------
 
-local mainMod = "SUPER" -- Sets "Windows" key as main modifier
+local mainMod = "ALT" -- Sets "Windows" key as main modifier
+
+--hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("rofi -show drun"))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 -- Kill the process owning the window with a SIGKILL
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.window.kill())
 -- Send a graceful request to close the window
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+
+--hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+--hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+--
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
+hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
+--hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
@@ -303,7 +308,8 @@ for i = 1, 10 do
 end
 
 -- Fullscreen - Window takes up the entire working space, keeping the margins.
-hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+--hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
+hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 -- Fullscreen - Window takes up the entire screen.
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 
