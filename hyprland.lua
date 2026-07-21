@@ -30,9 +30,9 @@ hl.monitor({
 ---------------------
 
 -- Set programs that you use
-local terminal    = "kitty"
+--local terminal    = "kitty"
+local terminal    = "alacritty"
 local fileManager = "dolphin"
-
 
 -------------------
 ---- AUTOSTART ----
@@ -123,7 +123,7 @@ hl.config({
         blur = {
             enabled   = true,
             size      = 3,
-            passes    = 3,
+            passes    = 2,
             vibrancy  = 0.2697,
         },
     },
@@ -231,7 +231,7 @@ hl.config({
         kb_layout  = "us,br",
         kb_variant = "",
         kb_model   = "",
-        kb_options = "caps:escape",
+        kb_options = "caps:escape,grp:win_space_toggle",
         kb_rules   = "",
 
         follow_mouse = 1,
@@ -251,17 +251,25 @@ hl.gesture({
 
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
-hl.device({
-    name        = "epic-mouse-v1",
-    sensitivity = -0.5,
-})
+--hl.device({
+    --name        = "epic-mouse-v1",
+    --sensitivity = -0.5,
+--})
 
+hl.device({ name = "2.4g-wireless-device-1", sensitivity = -0.5, })
+hl.device({ name = "2.4g-wireless-device-consumer-control-1", sensitivity = -1, })
+hl.device({ name = "corsair-corsair-gaming-harpoon-rgb-mouse", sensitivity = -1, })
+hl.device({ name = "corsair-corsair-gaming-harpoon-rgb-mouse-1", sensitivity = -1, })
+hl.device({ name = "evision-rgb-keyboard-2", sensitivity = -1, })
+hl.device({ name = "evision-rgb-keyboard-mouse", sensitivity = -1, })
+hl.device({ name = "keyd-virtual-pointer", sensitivity = -1, })
 
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
 
 local mainMod = "ALT" -- Sets "Windows" key as main modifier
+local mainModSuper = "SUPER" -- Sets "Windows" key as main modifier
 
 --hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("rofi -show drun"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
@@ -275,11 +283,11 @@ local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 
 --hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
---hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(mainMod .. " + CTRL +  Q", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 --
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
---hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
+hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
@@ -302,8 +310,9 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
 
     -- Move window to a different workspace and switch to that workspace with mainMod + SHIFT + [0-9]
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
-    -- Move window to a different workspace but keep current workspace with mainMod + CTRL + [0-9]
+    --hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i })) (move to workspace and go to workspace)
+    hl.bind("CTRL" .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    -- Move window to a different workspace but keep current workspace with mainMod + CTRL + [0-9] (send to workspace)
     hl.bind(mainMod .. " + CTRL + " .. key, hl.dsp.window.move({ workspace = i, follow = false }))
 end
 
@@ -311,12 +320,12 @@ end
 --hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 -- Fullscreen - Window takes up the entire screen.
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 
 -- Screenshot a monitor
-hl.bind("PRINT", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen pick"))
+hl.bind(mainModSuper .. " + S", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen pick"))
 -- Screenshot a region
-hl.bind(mainMod .. " +  PRINT", hl.dsp.exec_cmd(ipc .. "screenshot-region"))
+hl.bind(mainModSuper .. " + SHIFT + S", hl.dsp.exec_cmd(ipc .. "screenshot-region"))
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
