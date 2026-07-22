@@ -101,7 +101,7 @@ hl.config({
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
         allow_tearing = false,
 
-        layout = "dwindle",
+        layout = "master",
     },
 
     decoration = {
@@ -121,9 +121,9 @@ hl.config({
 
         blur = {
             enabled   = true,
-            size      = 3,
+            size      = 6,
             passes    = 2,
-            vibrancy  = 0.2697,
+            vibrancy  = 0.0697,
         },
     },
 
@@ -188,7 +188,9 @@ hl.config({
 -- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 hl.config({
     master = {
-        new_status = "master",
+        new_status = "slave",
+        orientation = "left",
+        new_on_active = "after",
     },
 })
 
@@ -298,12 +300,13 @@ hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
 
 -- Move focus with mainMod + arrow keys vim like binds
-hl.bind(mainMod .. " + h",  hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + k",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + j",  hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 
-hl.bind(mainMod .. " + TAB",  hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + TAB",  hl.dsp.layout("cyclenext"))
+hl.bind(mainMod .. " + SHIFT + TAB",  hl.dsp.layout("cycleprev"))
 
 -- Resize windows
 local resizeUnit = 100
