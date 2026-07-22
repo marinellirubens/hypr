@@ -411,3 +411,13 @@ hl.window_rule({
     match = { class = "steam" },
     float = true,
 })
+
+hl.window_rule({ match = { class = "cs2" }, immediate = true })
+hl.window_rule({
+    name  = "granblue",
+    match = { class = "steam_app_881020" },
+    fullscreen = true,
+    immediate = true,
+    workspace = "5",
+})
+
