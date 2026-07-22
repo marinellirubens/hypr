@@ -19,7 +19,8 @@ local ipc = "noctalia msg "
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
     output   = "",
-    mode     = "preferred",
+    --mode     = "preferred", -- 1920x1080@120
+    mode     = "1920x1080@120", -- 1920x1080@120
     position = "auto",
     scale    = "auto",
 })
@@ -288,7 +289,8 @@ hl.bind(mainMod .. " + CTRL +  Q", hl.dsp.exec_cmd("command -v hyprshutdown >/de
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+--hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + P", hl.dsp.window.pin())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
 -- Move focus with mainMod + arrow keys
@@ -296,6 +298,7 @@ hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + TAB",  hl.dsp.focus({ direction = "left" }))
 
 -- Resize windows
 local resizeUnit = 20
@@ -399,7 +402,12 @@ hl.window_rule({
 hl.window_rule({
     name  = "move-hyprland-run",
     match = { class = "hyprland-run" },
-
     move  = "20 monitor_h-120",
+    float = true,
+})
+
+hl.window_rule({
+    name  = "steam",
+    match = { class = "steam" },
     float = true,
 })
