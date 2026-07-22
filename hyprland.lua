@@ -412,7 +412,13 @@ hl.window_rule({
     float = true,
 })
 
-hl.window_rule({ match = { class = "cs2" }, immediate = true })
+hl.window_rule({
+    name  = "cs2",
+    match = { class = "cs2" },
+    immediate = true,
+    workspace = "5"
+})
+
 hl.window_rule({
     name  = "granblue",
     match = { class = "steam_app_881020" },
