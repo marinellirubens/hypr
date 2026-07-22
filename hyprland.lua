@@ -438,3 +438,10 @@ hl.window_rule({
     workspace = "5",
 })
 
+hl.window_rule({
+    name  = "pip",
+    match = { title = "Picture in picture" },
+    float = true,
+    pin = true,
+})
+
