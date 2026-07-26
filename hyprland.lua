@@ -335,8 +335,12 @@ hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized", action
 -- Fullscreen - Window takes up the entire screen.
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 
+local print_nofity = function()
+    hl.notification.create({ text = "Screenshot captured!", timeout = 1300, icon = "ok" })
+    hl.dispatch(hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen pick"))
+end
 -- Screenshot a monitor
-hl.bind(mainModSuper .. " + S", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen pick"))
+hl.bind(mainModSuper .. " + S", print_nofity)
 -- Screenshot a region
 hl.bind(mainModSuper .. " + SHIFT + S", hl.dsp.exec_cmd(ipc .. "screenshot-region"))
 
@@ -433,7 +437,7 @@ hl.window_rule({
     name  = "granblue",
     match = { class = "steam_app_881020" },
     fullscreen = true,
-    immediate = true,
+    immediate = false,
     workspace = "5",
 })
 
