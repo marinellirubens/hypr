@@ -236,7 +236,8 @@ hl.config({
         kb_rules   = "",
 
         follow_mouse = 1,
-        sensitivity = 0.01, -- -1.0 - 1.0, 0 means no modification.
+        sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
+        accel_profile ="flat",
 
         touchpad = {
             natural_scroll = false,
@@ -252,18 +253,13 @@ hl.gesture({
 
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
---hl.device({
-    --name        = "epic-mouse-v1",
-    --sensitivity = -0.5,
---})
-
-hl.device({ name = "2.4g-wireless-device-1", sensitivity = -0.5, })
-hl.device({ name = "2.4g-wireless-device-consumer-control-1", sensitivity = -1, })
-hl.device({ name = "corsair-corsair-gaming-harpoon-rgb-mouse", sensitivity = -1, })
-hl.device({ name = "corsair-corsair-gaming-harpoon-rgb-mouse-1", sensitivity = -1, })
-hl.device({ name = "evision-rgb-keyboard-2", sensitivity = -1, })
-hl.device({ name = "evision-rgb-keyboard-mouse", sensitivity = -1, })
-hl.device({ name = "keyd-virtual-pointer", sensitivity = -1, })
+--hl.device({ name = "2.4g-wireless-device-1", sensitivity = -1, accel_profile ="flat"})
+--hl.device({ name = "2.4g-wireless-device-consumer-control-1", sensitivity = -1,  accel_profile ="flat"})
+--hl.device({ name = "corsair-corsair-gaming-harpoon-rgb-mouse", sensitivity = -1, })
+--hl.device({ name = "corsair-corsair-gaming-harpoon-rgb-mouse-1", sensitivity = -1, })
+--hl.device({ name = "evision-rgb-keyboard-2", sensitivity = -1, })
+--hl.device({ name = "evision-rgb-keyboard-mouse", sensitivity = -1, })
+--hl.device({ name = "keyd-virtual-pointer", sensitivity = -1, })
 
 ---------------------
 ---- KEYBINDINGS ----
