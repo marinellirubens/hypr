@@ -301,8 +301,33 @@ hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 
-hl.bind(mainMod .. " + TAB",  hl.dsp.layout("cyclenext"))
-hl.bind(mainMod .. " + SHIFT + TAB",  hl.dsp.layout("cycleprev"))
+local function layout_bind(bind_table)
+    return function ()
+        local workspace = hl.get_active_special_workspace() or
+                          hl.get_active_workspace()
+
+        if not workspace then
+            return
+        end
+
+        local layout = workspace.tiled_layout
+
+        --hl.notification.create({ text = layout, timeout = 2300, icon = "ok" })
+        if bind_table[layout] then
+            hl.dispatch(bind_table[layout])
+        end
+    end
+end
+
+hl.bind(mainMod .. " + TAB",  layout_bind({
+    master = hl.dsp.layout("cyclenext"),
+    scrolling = hl.dsp.layout("focus r"),
+}))
+--hl.bind(mainMod .. " + TAB",  hl.dsp.layout("cyclenext"))
+hl.bind(mainMod .. " + SHIFT + TAB",  layout_bind({
+    master = hl.dsp.layout("cycleprev"),
+    scrolling = hl.dsp.layout("focus l"),
+}))
 
 -- Resize windows
 local resizeUnit = 100
@@ -352,8 +377,53 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 
-hl.bind(mainMod .. " + CTRL + mouse_down", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + CTRL + mouse_up",   hl.dsp.focus({ direction = "left" }))
+-- Scrool through existing windows
+
+hl.bind(mainMod .. " + CTRL + mouse_down", layout_bind({
+    master = hl.dsp.focus({ direction = "right" }),
+    scrolling = hl.dsp.layout("move -1200"),
+}))
+hl.bind(mainMod .. " + CTRL + mouse_up", layout_bind({
+    master = hl.dsp.focus({ direction = "left" }),
+    scrolling = hl.dsp.layout("move +1200"),
+}))
+hl.bind(mainMod .. " + comma", layout_bind({
+    scrolling = hl.dsp.layout("swapcol l"),
+    master = hl.dsp.layout("swapnext"),
+}))
+hl.bind(mainMod .. " + period", layout_bind({
+    scrolling = hl.dsp.layout("swapcol r"),
+    master = hl.dsp.layout("swapprev"),
+}))
+
+hl.bind("SUPER + l", function ()
+    local layouts     = { "scrolling", "dwindle", "master", "monocle" }
+    local workspace   = hl.get_active_workspace()
+    if hl.get_active_special_workspace() then
+        workspace = hl.get_active_special_workspace()
+    end
+
+    local next_layout = "dwindle"
+
+    if not workspace then
+        return
+    end
+
+    for i = 1, #layouts do
+        if layouts[i] == workspace.tiled_layout then
+            local next_layout_idx = (i % #layouts) + 1
+            next_layout = layouts[next_layout_idx]
+            break
+        end
+    end
+
+    hl.notification.create({ text = "Changing to layout: " .. next_layout, timeout = 2300, icon = "ok" })
+    if workspace.special then
+        hl.workspace_rule({ workspace = tostring(workspace.name), layout = next_layout })
+    else
+        hl.workspace_rule({ workspace = tostring(workspace.id), layout = next_layout })
+    end
+end)
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
