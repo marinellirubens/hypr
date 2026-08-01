@@ -18,9 +18,15 @@ local ipc = "noctalia msg "
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
+    output   = "HDMI-A-1",
+    mode     = "1920x1080@120",
+    position = "auto",
+    scale    = "auto",
+})
+
+hl.monitor({
     output   = "",
-    --mode     = "preferred", -- 1920x1080@120
-    mode     = "1920x1080@120", -- 1920x1080@120
+    mode     = "preferred",
     position = "auto",
     scale    = "auto",
 })
