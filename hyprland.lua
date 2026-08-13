@@ -25,8 +25,16 @@ hl.monitor({
 })
 
 hl.monitor({
+    output   = "eDP-1",
+    mode     = "1920x1080",
+    position = "auto",
+    scale    = "auto",
+    mirror   = "HDMI-A-1",
+})
+
+hl.monitor({
     output   = "",
-    mode     = "preferred",
+    mode     = "1920x1080",
     position = "auto",
     scale    = "auto",
 })
