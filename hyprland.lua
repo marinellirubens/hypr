@@ -74,6 +74,7 @@ end)
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("QT_QPA_PLATFORMTHEME", "hyprqt6engine")
 
 
 -----------------------
@@ -391,18 +392,18 @@ hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- Scroll through existing workspaces with mainMod + scroll
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mainMod .. " + CTRL + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + CTRL + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 
 -- Scrool through existing windows
 
-hl.bind(mainMod .. " + CTRL + mouse_down", layout_bind({
+hl.bind(mainMod .. " + mouse_down", layout_bind({
     master = hl.dsp.focus({ direction = "right" }),
-    scrolling = hl.dsp.layout("move -1200"),
+    scrolling = hl.dsp.layout("move -900"),
 }))
-hl.bind(mainMod .. " + CTRL + mouse_up", layout_bind({
+hl.bind(mainMod .. " + mouse_up", layout_bind({
     master = hl.dsp.focus({ direction = "left" }),
-    scrolling = hl.dsp.layout("move +1200"),
+    scrolling = hl.dsp.layout("move +900"),
 }))
 hl.bind(mainMod .. " + comma", layout_bind({
     scrolling = hl.dsp.layout("swapcol l"),
