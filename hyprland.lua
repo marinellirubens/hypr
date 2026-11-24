@@ -443,8 +443,17 @@ hl.bind("SUPER + l", function ()
     end
 end)
 
+for i = 1, 10 do
+    hl.workspace_rule({ workspace = tostring(i), monitor = "" })
+end
+for i = 1, 7 do
+    hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1" })
+end
+hl.workspace_rule({ workspace = "8", monitor = "DP-1" })
+hl.workspace_rule({ workspace = "9", monitor = "DP-1" })
+
 -- Move/resize windows with mainMod + LMB/RMB and dragging
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
+--hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
