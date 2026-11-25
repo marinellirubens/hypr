@@ -288,15 +288,15 @@ hl.gesture({
 local mainMod = "ALT" -- Sets "Windows" key as main modifier
 local mainModSuper = "SUPER" -- Sets "Windows" key as main modifier
 
-hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("rofi -show drun"))
---hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
+--hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("rofi -show drun"))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 -- Kill the process owning the window with a SIGKILL
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.window.kill())
 -- Send a graceful request to close the window
-local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
+hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 
 --hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
